@@ -1,0 +1,32 @@
+{% extends "main.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container mt-5">
+  <h2 class="text-white text-center">İnsansız Hava Aracı Sistemleri</h2>
+  {% for kategori in kategoriler %}
+        <div class="card mb-3 kategori-card" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{ kategori.resim.url }}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title kategori-isim text-center">{{ kategori.isim }}</h5>
+                  <div class="text-center">
+                    <a href="{% url 'ihaDetay' kategori.slug %}">
+                    <button type="button" class="btn btn-secondary detay-button">Detaylı Bilgi</button>                
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+  {% endfor %}
+
+    
+</div>
+
+{% endblock content %}

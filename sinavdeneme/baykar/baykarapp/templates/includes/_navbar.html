@@ -1,0 +1,48 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+       <img class="img-logo" src="{% static 'image/logo.png' %}" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item d-flex">
+          <img src="{{request.user.profil.profilresim.url}}" class="rounded-5" width="45px" alt="">
+          <a class="nav-link" href="{% url 'profil' %}">{{user.username}}</a>
+        </li>
+        <li class="nav-item">
+           <a class="nav-link" href="{% url 'kiralama' %}">Kiralama({{ ihalar.all.count }})</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            İHA'larımız
+          </a>
+          <ul class="dropdown-menu">
+             {% for kategori in kategoriler %}
+                <li><a class="dropdown-item" href="{% url 'ihaDetay' kategori.slug %}">{{ kategori.isim }}</a></li>
+             {% endfor %}
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Giriş
+          </a>
+          <ul class="dropdown-menu">
+            {% if user.is_authenticated %}
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Çıkış</a></li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'login' %}">Giriş</a></li>
+            <li><a class="dropdown-item" href="{% url 'register' %}">Kayıt Ol</a></li>
+            {% endif %}
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

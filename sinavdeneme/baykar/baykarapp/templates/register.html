@@ -1,0 +1,34 @@
+{% extends "main.html" %}
+{% load static %}
+
+
+{% block content %}
+
+   <style>
+    .container label{
+        color: #fff;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+   </style>
+
+    <div class="container">
+        <form action="" method="POST" class="w-50 m-auto p-4">
+            {% csrf_token %}
+            <label for="">Kullanıcı Adı</label>
+            <input type="text" name="kullanici" required id="" class="form-control">
+            <label for="">E-mail</label>
+            <input type="email" name="email" required id="" class="form-control">
+            <label for="">İsim</label>
+            <input type="text" name="isim" required id="" class="form-control">
+            <label for="">Soyisim</label>
+            <input type="text" name="soyisim" required id="" class="form-control">
+            <label for="">Şifre</label>
+            <input type="password" name="sifre1" required id="" class="form-control">
+            <label for="">Şifre Onay</label>
+            <input type="password" name="sifre2" required id="" class="form-control">
+            <input type="submit" value="Kayıt OL" class="btn btn-secondary">
+        </form>
+    </div>
+
+{% endblock content %}

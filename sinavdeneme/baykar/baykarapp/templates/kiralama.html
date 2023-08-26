@@ -1,0 +1,45 @@
+{% extends "main.html" %}
+{% load static %}
+
+
+{% block content %}
+<style>
+    footer{
+          margin-top: 375px;
+    }
+</style>
+
+            <div class="container mt-5">
+                {% if ihalar.all.count == 0 %}
+                    <h3 class="text-center text-white mb-5">Kiralamak için İHA bulunmamaktadır.</h3>
+                {% else %}
+                        {% for iha in ihalar %}
+                                <div class="card mb-3 kategori-card" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="{{ iha.iha.resim.url }}" class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title kategori-isim">{{ iha.iha.isim }}</h5>
+                                            <a href="{% url 'deleteIha' iha.id %}">
+                                                <button class="btn btn-secondary ">Listeden Çıkar</button>
+                                            </a>
+                                            
+                                        </div>
+                                    
+                                    </div>
+                                    </div>
+                                </div>
+                        {% endfor %}
+
+                {% endif %}
+                        
+                        <h3 class="text-center text-white mt-5">Toplam Kiralama Bedeli : {{ toplamFiyat }}</h3>
+                    
+
+            </div>
+                
+
+
+{% endblock content %}
