@@ -10,8 +10,12 @@ from django.contrib.auth import authenticate,logout
 
 
 def kiralama(request):
+    if request.user.is_authenticated:
+        ihalar = Kiralama.objects.filter(kullanici = request.user)
+    else:
+        ihalar = 0
 
-    ihalar = Kiralama.objects.filter(kullanici = request.user)
+    
     
     toplamFiyat = 0
     for i in ihalar:
@@ -31,7 +35,10 @@ def deleteIha(request , id):
 
 
 def index(request):
-    ihalar = Kiralama.objects.filter(kullanici = request.user)
+    if request.user.is_authenticated:
+        ihalar = Kiralama.objects.filter(kullanici = request.user)
+    else:
+        ihalar = 0
     kategoriler = Iha.objects.all()
     context={
         'kategoriler' :kategoriler,
@@ -42,7 +49,10 @@ def index(request):
 def ihaDetay(request , ihaid):
     kategoriler = Iha.objects.all()
     ihaDetay = Iha.objects.get(slug = ihaid)
-    ihalar = Kiralama.objects.filter(kullanici = request.user)
+    if request.user.is_authenticated:
+        ihalar = Kiralama.objects.filter(kullanici = request.user)
+    else:
+        ihalar = 0
 
     if 'listele' in request.POST:
         ihaId = request.POST['ihaid']
@@ -56,7 +66,6 @@ def ihaDetay(request , ihaid):
 
     if 'kirala' in request.POST:
         saat = int(request.POST.get('number'))
-        print(saat)
         if Kiralama.objects.filter(kullanici = request.user , iha = ihaDetay):
             iha = Kiralama.objects.get(kullanici = request.user , iha = ihaDetay)
             iha.kiralamaSaat += saat

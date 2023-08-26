@@ -14,23 +14,28 @@
     <h4>İHA'larımızı kiralama durumu saatlik olup {{ ihaDetay.isim }} İHA'ımızı kiralamanın bedeli {{ ihaDetay.fiyat }} $'dır.</h4>
     <div class="buttonlar d-flex justify-content-evenly mt-5">
 
-            <form action="" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="ihaid" value="{{ ihaDetay.id }}">
-                <button type="submit" name="listele" class="btn btn-secondary detay-button">
-                    {% if request.user in ihaDetay.kiralanacak.all %}
-                       Listeden çıkar
-                    {% else %}
-                       Listele
-                    {% endif %}
-                </button>             
-            </form>
+        {% if user.is_authenticated %}
+                <form action="" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="ihaid" value="{{ ihaDetay.id }}">
+                        <button type="submit" name="listele" class="btn btn-secondary detay-button">
+                            {% if request.user in ihaDetay.kiralanacak.all %}
+                            Listeden çıkar
+                            {% else %}
+                            Listele
+                            {% endif %}
+                        </button>             
+                </form>
 
-            <form action="" method="post">
-                {% csrf_token %}
-                <input type="number" name="number" class="py-2 form-control d-inline-flex" min="1" max="48" style="width : 70px">
-                <button type="submit" name="kirala" class="btn btn-secondary detay-button">Kirala</button>                    
-            </form>        
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="number" name="number" class="py-2 form-control d-inline-flex" min="1" max="48" style="width : 70px">
+                        <button type="submit" name="kirala" class="btn btn-secondary detay-button">Kirala</button>                    
+                    </form>   
+        {% else %}
+        {% endif %}
+
+                 
     </div>
 </div>
 
